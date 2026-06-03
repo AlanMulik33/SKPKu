@@ -17,12 +17,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SkpKu">
         <activity
-<<<<<<< HEAD
             android:name=".PreviewBuktiActivity"
             android:exported="false" />
         <activity
-=======
->>>>>>> 873eae3339ca4b1e7a12c0e54268467ca9642f93
             android:name=".DetailSkpActivity"
             android:exported="false" />
 

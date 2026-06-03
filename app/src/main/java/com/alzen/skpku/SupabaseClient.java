@@ -1,9 +1,5 @@
 package com.alzen.skpku;
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 873eae3339ca4b1e7a12c0e54268467ca9642f93
 import android.content.Context;
 import android.net.Uri;
 
@@ -22,21 +18,13 @@ import okhttp3.Response;
 
 /*
  * Class ini bertugas menghubungkan aplikasi Android dengan Supabase.
-<<<<<<< HEAD
  * Semua proses CRUD database, upload file, dan baca file bukti lewat class ini.
-=======
- * Semua proses CRUD database dan upload file akan lewat class ini.
->>>>>>> 873eae3339ca4b1e7a12c0e54268467ca9642f93
  */
 public class SupabaseClient {
 
     /*
      * Data koneksi Supabase.
-<<<<<<< HEAD
      * Key yang dipakai adalah publishable/anon key, bukan service role key.
-=======
-     * SUPABASE_ANON_KEY ini adalah publishable/anon key, bukan service role key.
->>>>>>> 873eae3339ca4b1e7a12c0e54268467ca9642f93
      */
     public static final String SUPABASE_URL = "https://iodigakwxtdyyivoxuqv.supabase.co";
     public static final String SUPABASE_ANON_KEY = "sb_publishable_CFrekMEtCf3NcHUS5Jsx0Q_VaNDSRCF";
@@ -51,7 +39,6 @@ public class SupabaseClient {
     }
 
     /*
-<<<<<<< HEAD
      * Callback khusus untuk mengambil file dari Supabase Storage dalam bentuk byte array.
      * Ini dipakai supaya preview dan download tidak bergantung pada bucket public.
      */
@@ -62,10 +49,7 @@ public class SupabaseClient {
 
     /*
      * Header standar untuk request ke Supabase REST API dan Storage API.
-=======
-     * Header standar untuk request ke Supabase REST API.
      * apikey dan Authorization wajib dikirim agar request diterima Supabase.
->>>>>>> 873eae3339ca4b1e7a12c0e54268467ca9642f93
      */
     private static Request.Builder getBaseRequestBuilder(String url) {
         return new Request.Builder()
@@ -76,12 +60,8 @@ public class SupabaseClient {
     }
 
     /*
-<<<<<<< HEAD
      * Membaca semua data SKP milik user tertentu.
-=======
-     * Method untuk membaca semua data SKP dari Supabase.
      * Data diurutkan berdasarkan timestamp terbaru.
->>>>>>> 873eae3339ca4b1e7a12c0e54268467ca9642f93
      */
     public static void getAllSkpRecords(String userKey, SupabaseCallback callback) {
         String encodedUserKey = encodePath(userKey);
@@ -101,12 +81,8 @@ public class SupabaseClient {
     }
 
     /*
-<<<<<<< HEAD
      * Menyimpan data SKP baru.
-=======
-     * Method untuk menyimpan data SKP baru.
      * Body dikirim dalam format JSON.
->>>>>>> 873eae3339ca4b1e7a12c0e54268467ca9642f93
      */
     public static void insertSkpRecord(String jsonBody, SupabaseCallback callback) {
         String url = SUPABASE_URL + "/rest/v1/" + TABLE_NAME;
@@ -126,11 +102,7 @@ public class SupabaseClient {
     }
 
     /*
-<<<<<<< HEAD
      * Mengupdate data SKP berdasarkan id.
-=======
-     * Method untuk mengupdate data SKP berdasarkan id.
->>>>>>> 873eae3339ca4b1e7a12c0e54268467ca9642f93
      */
     public static void updateSkpRecord(String id, String jsonBody, SupabaseCallback callback) {
         String url = SUPABASE_URL
@@ -154,11 +126,7 @@ public class SupabaseClient {
     }
 
     /*
-<<<<<<< HEAD
      * Menghapus data SKP berdasarkan id.
-=======
-     * Method untuk menghapus data SKP berdasarkan id.
->>>>>>> 873eae3339ca4b1e7a12c0e54268467ca9642f93
      */
     public static void deleteSkpRecord(String id, SupabaseCallback callback) {
         String url = SUPABASE_URL
@@ -175,12 +143,8 @@ public class SupabaseClient {
     }
 
     /*
-<<<<<<< HEAD
      * Upload file bukti ke Supabase Storage.
-=======
-     * Method untuk upload file bukti ke Supabase Storage.
-     * File akan disimpan ke bucket bukti-skp.
->>>>>>> 873eae3339ca4b1e7a12c0e54268467ca9642f93
+     * File akan disimpan ke bucket skp-bukti.
      */
     public static void uploadFile(Context context,
                                   Uri fileUri,
@@ -196,18 +160,12 @@ public class SupabaseClient {
                 return;
             }
 
-<<<<<<< HEAD
-            String safeFileName = makeSafeFileName(originalFileName);
-            String storagePath = System.currentTimeMillis() + "_" + safeFileName;
-=======
             /*
              * Nama file dibuat unik memakai timestamp agar tidak bentrok
              * jika user mengupload file dengan nama yang sama.
              */
             String safeFileName = makeSafeFileName(originalFileName);
             String storagePath = System.currentTimeMillis() + "_" + safeFileName;
-
->>>>>>> 873eae3339ca4b1e7a12c0e54268467ca9642f93
             String encodedPath = encodePath(storagePath);
 
             String url = SUPABASE_URL
@@ -238,14 +196,11 @@ public class SupabaseClient {
                     String responseBody = response.body() != null ? response.body().string() : "";
 
                     if (response.isSuccessful()) {
-<<<<<<< HEAD
-=======
                         /*
                          * Response sukses kita buat sendiri dalam format sederhana:
                          * storage_path|public_url
                          * Nanti di FormSkpActivity akan dipisahkan.
                          */
->>>>>>> 873eae3339ca4b1e7a12c0e54268467ca9642f93
                         String publicUrl = getPublicFileUrl(storagePath);
                         callback.onSuccess(storagePath + "|" + publicUrl);
                     } else {
@@ -260,7 +215,6 @@ public class SupabaseClient {
     }
 
     /*
-<<<<<<< HEAD
      * Mengambil file dari Supabase Storage menggunakan storage_path.
      * Cara ini lebih aman daripada langsung membuka public URL, karena tetap mengirim apikey.
      */
@@ -299,10 +253,7 @@ public class SupabaseClient {
 
     /*
      * Menghapus file bukti dari Supabase Storage.
-=======
-     * Method untuk menghapus file bukti dari Supabase Storage.
      * storagePath diambil dari kolom storage_path pada database.
->>>>>>> 873eae3339ca4b1e7a12c0e54268467ca9642f93
      */
     public static void deleteFile(String storagePath, SupabaseCallback callback) {
         String url = SUPABASE_URL + "/storage/v1/object/" + BUCKET_NAME;
@@ -323,12 +274,8 @@ public class SupabaseClient {
     }
 
     /*
-<<<<<<< HEAD
-     * URL public. Dipakai sebagai cadangan jika bucket public.
-=======
      * Membuat URL publik file.
      * Karena bucket bukti-skp dibuat public, file bisa dibuka memakai URL ini.
->>>>>>> 873eae3339ca4b1e7a12c0e54268467ca9642f93
      */
     public static String getPublicFileUrl(String storagePath) {
         return SUPABASE_URL
@@ -339,7 +286,6 @@ public class SupabaseClient {
     }
 
     /*
-<<<<<<< HEAD
      * URL authenticated. Dipakai untuk preview/download internal aplikasi.
      */
     public static String getAuthenticatedFileUrl(String storagePath) {
@@ -350,11 +296,10 @@ public class SupabaseClient {
                 + encodePath(storagePath);
     }
 
-=======
+    /*
      * Method umum untuk menjalankan request OkHttp.
      * Dipakai oleh GET, POST, PATCH, DELETE database.
      */
->>>>>>> 873eae3339ca4b1e7a12c0e54268467ca9642f93
     private static void executeRequest(Request request, SupabaseCallback callback) {
         client.newCall(request).enqueue(new Callback() {
             @Override
@@ -375,13 +320,10 @@ public class SupabaseClient {
         });
     }
 
-<<<<<<< HEAD
-=======
     /*
      * Membaca file dari Uri menjadi byte array.
      * Ini dibutuhkan sebelum file dikirim ke Supabase Storage.
      */
->>>>>>> 873eae3339ca4b1e7a12c0e54268467ca9642f93
     private static byte[] readBytesFromUri(Context context, Uri uri) throws IOException {
         InputStream inputStream = context.getContentResolver().openInputStream(uri);
 
@@ -401,12 +343,9 @@ public class SupabaseClient {
         return buffer.toByteArray();
     }
 
-<<<<<<< HEAD
-=======
     /*
      * Membersihkan nama file agar aman dipakai sebagai nama object di storage.
      */
->>>>>>> 873eae3339ca4b1e7a12c0e54268467ca9642f93
     private static String makeSafeFileName(String fileName) {
         if (fileName == null || fileName.trim().isEmpty()) {
             return "bukti_skp";
@@ -419,7 +358,9 @@ public class SupabaseClient {
                 .replace(":", "_");
     }
 
-<<<<<<< HEAD
+    /*
+     * Encode path agar aman ketika dimasukkan ke URL.
+     */
     private static String encodePath(String path) {
         try {
             String[] parts = path.split("/");
@@ -434,20 +375,8 @@ public class SupabaseClient {
             }
 
             return builder.toString();
-=======
-    /*
-     * Encode path agar aman ketika dimasukkan ke URL.
-     */
-    private static String encodePath(String path) {
-        try {
-            return URLEncoder.encode(path, "UTF-8").replace("+", "%20");
->>>>>>> 873eae3339ca4b1e7a12c0e54268467ca9642f93
         } catch (Exception e) {
             return path;
         }
     }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 873eae3339ca4b1e7a12c0e54268467ca9642f93
