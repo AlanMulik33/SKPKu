@@ -99,7 +99,10 @@ public class Skp implements Serializable {
     public JSONObject toJson() throws JSONException {
         JSONObject object = new JSONObject();
 
+<<<<<<< HEAD
         object.put("user_key", user_key);
+=======
+>>>>>>> 873eae3339ca4b1e7a12c0e54268467ca9642f93
         object.put("nama_kegiatan", nama_kegiatan);
         object.put("jenis_kegiatan", jenis_kegiatan);
         object.put("kategori_bidang", kategori_bidang);

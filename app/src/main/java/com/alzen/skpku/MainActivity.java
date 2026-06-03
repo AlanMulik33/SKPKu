@@ -62,7 +62,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         sharedPreferences = getSharedPreferences("SKPKU_PREF", MODE_PRIVATE);
+<<<<<<< HEAD
         userKey = getOrCreateUserKey();
+=======
+>>>>>>> 873eae3339ca4b1e7a12c0e54268467ca9642f93
 
         initViews();
         setupRecyclerView();

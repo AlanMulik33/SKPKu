@@ -65,9 +65,12 @@ public class FormSkpActivity extends AppCompatActivity {
     private String existingFileType = "";
     private String existingStoragePath = "";
 
+<<<<<<< HEAD
     private boolean isInitialEditLoad = false;
     private String latestStoragePath = "";
 
+=======
+>>>>>>> 873eae3339ca4b1e7a12c0e54268467ca9642f93
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -124,7 +127,10 @@ public class FormSkpActivity extends AppCompatActivity {
 
         if ("edit".equalsIgnoreCase(mode)) {
             isEditMode = true;
+<<<<<<< HEAD
             isInitialEditLoad = true;
+=======
+>>>>>>> 873eae3339ca4b1e7a12c0e54268467ca9642f93
             editSkp = (Skp) getIntent().getSerializableExtra("skp");
 
             tvFormTitle.setText("Edit Data SKP");
@@ -136,14 +142,21 @@ public class FormSkpActivity extends AppCompatActivity {
                 existingStoragePath = editSkp.getStorage_path();
 
                 if (existingFileName != null && !existingFileName.isEmpty()) {
+<<<<<<< HEAD
                     tvFileName.setText("File saat ini: " + existingFileName + "\nPilih file baru jika ingin mengganti bukti.");
                 } else {
                     tvFileName.setText("Belum ada file bukti. Pilih file jika ingin menambahkan bukti.");
+=======
+                    tvFileName.setText("File saat ini: " + existingFileName);
+>>>>>>> 873eae3339ca4b1e7a12c0e54268467ca9642f93
                 }
             }
         } else {
             isEditMode = false;
+<<<<<<< HEAD
             isInitialEditLoad = false;
+=======
+>>>>>>> 873eae3339ca4b1e7a12c0e54268467ca9642f93
             tvFormTitle.setText("Tambah Data SKP");
         }
     }
@@ -161,6 +174,17 @@ public class FormSkpActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 selectedKategori = kategoriList.get(position);
                 setupKegiatanSpinner();
+<<<<<<< HEAD
+=======
+
+                /*
+                 * Saat mode edit, spinner akan diarahkan ke data lama.
+                 * Ini hanya dijalankan setelah spinner pertama selesai dibuat.
+                 */
+                if (isEditMode && editSkp != null) {
+                    setSpinnerSelection(spKategori, editSkp.getKategori_bidang());
+                }
+>>>>>>> 873eae3339ca4b1e7a12c0e54268467ca9642f93
             }
 
             @Override
@@ -168,12 +192,17 @@ public class FormSkpActivity extends AppCompatActivity {
             }
         });
 
+<<<<<<< HEAD
         /*
          * Saat edit, isi kategori lama hanya sekali.
          * Setelah itu user bebas mengubah kategori.
          */
         if (isInitialEditLoad && editSkp != null) {
             spKategori.post(() -> setSpinnerSelection(spKategori, editSkp.getKategori_bidang()));
+=======
+        if (isEditMode && editSkp != null) {
+            setSpinnerSelection(spKategori, editSkp.getKategori_bidang());
+>>>>>>> 873eae3339ca4b1e7a12c0e54268467ca9642f93
         }
     }
 
@@ -183,7 +212,10 @@ public class FormSkpActivity extends AppCompatActivity {
      */
     private void setupKegiatanSpinner() {
         List<String> kegiatanList = SkpRule.getKegiatanList(selectedKategori);
+<<<<<<< HEAD
 
+=======
+>>>>>>> 873eae3339ca4b1e7a12c0e54268467ca9642f93
         setSpinnerData(spKegiatan, kegiatanList);
 
         spKegiatan.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -191,6 +223,13 @@ public class FormSkpActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 selectedKegiatan = kegiatanList.get(position);
                 setupTingkatSpinner();
+<<<<<<< HEAD
+=======
+
+                if (isEditMode && editSkp != null) {
+                    setSpinnerSelection(spKegiatan, editSkp.getNama_kegiatan());
+                }
+>>>>>>> 873eae3339ca4b1e7a12c0e54268467ca9642f93
             }
 
             @Override
@@ -198,11 +237,16 @@ public class FormSkpActivity extends AppCompatActivity {
             }
         });
 
+<<<<<<< HEAD
         /*
          * Saat edit, isi kegiatan lama hanya sekali.
          */
         if (isInitialEditLoad && editSkp != null) {
             spKegiatan.post(() -> setSpinnerSelection(spKegiatan, editSkp.getNama_kegiatan()));
+=======
+        if (isEditMode && editSkp != null) {
+            setSpinnerSelection(spKegiatan, editSkp.getNama_kegiatan());
+>>>>>>> 873eae3339ca4b1e7a12c0e54268467ca9642f93
         }
     }
 
@@ -211,7 +255,10 @@ public class FormSkpActivity extends AppCompatActivity {
      */
     private void setupTingkatSpinner() {
         List<String> tingkatList = SkpRule.getTingkatList(selectedKategori, selectedKegiatan);
+<<<<<<< HEAD
 
+=======
+>>>>>>> 873eae3339ca4b1e7a12c0e54268467ca9642f93
         setSpinnerData(spTingkat, tingkatList);
 
         spTingkat.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -219,6 +266,13 @@ public class FormSkpActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 selectedTingkat = tingkatList.get(position);
                 setupPeranSpinner();
+<<<<<<< HEAD
+=======
+
+                if (isEditMode && editSkp != null) {
+                    setSpinnerSelection(spTingkat, editSkp.getTingkat());
+                }
+>>>>>>> 873eae3339ca4b1e7a12c0e54268467ca9642f93
             }
 
             @Override
@@ -226,6 +280,7 @@ public class FormSkpActivity extends AppCompatActivity {
             }
         });
 
+<<<<<<< HEAD
         spTingkat.setEnabled(tingkatList.size() > 1);
 
         /*
@@ -233,6 +288,16 @@ public class FormSkpActivity extends AppCompatActivity {
          */
         if (isInitialEditLoad && editSkp != null) {
             spTingkat.post(() -> setSpinnerSelection(spTingkat, editSkp.getTingkat()));
+=======
+        if (tingkatList.size() == 1) {
+            spTingkat.setEnabled(false);
+        } else {
+            spTingkat.setEnabled(true);
+        }
+
+        if (isEditMode && editSkp != null) {
+            setSpinnerSelection(spTingkat, editSkp.getTingkat());
+>>>>>>> 873eae3339ca4b1e7a12c0e54268467ca9642f93
         }
     }
 
@@ -241,7 +306,10 @@ public class FormSkpActivity extends AppCompatActivity {
      */
     private void setupPeranSpinner() {
         List<String> peranList = SkpRule.getPeranList(selectedKategori, selectedKegiatan, selectedTingkat);
+<<<<<<< HEAD
 
+=======
+>>>>>>> 873eae3339ca4b1e7a12c0e54268467ca9642f93
         setSpinnerData(spPeran, peranList);
 
         spPeran.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -249,6 +317,13 @@ public class FormSkpActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 selectedPeran = peranList.get(position);
                 setupModeSpinner();
+<<<<<<< HEAD
+=======
+
+                if (isEditMode && editSkp != null) {
+                    setSpinnerSelection(spPeran, editSkp.getPeran());
+                }
+>>>>>>> 873eae3339ca4b1e7a12c0e54268467ca9642f93
             }
 
             @Override
@@ -256,6 +331,7 @@ public class FormSkpActivity extends AppCompatActivity {
             }
         });
 
+<<<<<<< HEAD
         spPeran.setEnabled(peranList.size() > 1);
 
         /*
@@ -263,6 +339,16 @@ public class FormSkpActivity extends AppCompatActivity {
          */
         if (isInitialEditLoad && editSkp != null) {
             spPeran.post(() -> setSpinnerSelection(spPeran, editSkp.getPeran()));
+=======
+        if (peranList.size() == 1) {
+            spPeran.setEnabled(false);
+        } else {
+            spPeran.setEnabled(true);
+        }
+
+        if (isEditMode && editSkp != null) {
+            setSpinnerSelection(spPeran, editSkp.getPeran());
+>>>>>>> 873eae3339ca4b1e7a12c0e54268467ca9642f93
         }
     }
 
@@ -285,6 +371,13 @@ public class FormSkpActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 selectedMode = modeList.get(position);
                 calculatePointNow();
+<<<<<<< HEAD
+=======
+
+                if (isEditMode && editSkp != null) {
+                    setSpinnerSelection(spMode, editSkp.getMode_kegiatan());
+                }
+>>>>>>> 873eae3339ca4b1e7a12c0e54268467ca9642f93
             }
 
             @Override
@@ -294,6 +387,7 @@ public class FormSkpActivity extends AppCompatActivity {
 
         if (modeList.size() == 1 && SkpRule.MODE_TIDAK_ADA.equals(modeList.get(0))) {
             spMode.setEnabled(false);
+<<<<<<< HEAD
         } else {
             spMode.setEnabled(true);
         }
@@ -317,6 +411,19 @@ public class FormSkpActivity extends AppCompatActivity {
         } else {
             calculatePointNow();
         }
+=======
+            tvLabelMode.setText("Mode Kegiatan");
+        } else {
+            spMode.setEnabled(true);
+            tvLabelMode.setText("Mode Kegiatan");
+        }
+
+        if (isEditMode && editSkp != null) {
+            setSpinnerSelection(spMode, editSkp.getMode_kegiatan());
+        }
+
+        calculatePointNow();
+>>>>>>> 873eae3339ca4b1e7a12c0e54268467ca9642f93
     }
 
     /*
@@ -578,7 +685,10 @@ public class FormSkpActivity extends AppCompatActivity {
         try {
             Skp skp = new Skp();
 
+<<<<<<< HEAD
             skp.setUser_key(userKey);
+=======
+>>>>>>> 873eae3339ca4b1e7a12c0e54268467ca9642f93
             skp.setNama_kegiatan(selectedKegiatan);
             skp.setJenis_kegiatan(SkpRule.getJenisKegiatan(selectedKategori));
             skp.setKategori_bidang(selectedKategori);
@@ -591,6 +701,10 @@ public class FormSkpActivity extends AppCompatActivity {
             skp.setFile_type(fileType);
             skp.setStorage_path(storagePath);
             skp.setTanggal_input(getTodayDate());
+<<<<<<< HEAD
+=======
+            skp.setUser_key(userKey);
+>>>>>>> 873eae3339ca4b1e7a12c0e54268467ca9642f93
 
             /*
              * Untuk edit, timestamp lama tetap dipakai agar urutan data tidak berubah drastis.
@@ -647,6 +761,7 @@ public class FormSkpActivity extends AppCompatActivity {
         SupabaseClient.updateSkpRecord(editSkp.getId(), jsonBody, new SupabaseClient.SupabaseCallback() {
             @Override
             public void onSuccess(String responseBody) {
+<<<<<<< HEAD
                 /*
                  * Jika saat edit user memilih file baru,
                  * file lama akan dihapus dari Supabase Storage agar tidak menumpuk.
@@ -671,6 +786,8 @@ public class FormSkpActivity extends AppCompatActivity {
                     });
                 }
 
+=======
+>>>>>>> 873eae3339ca4b1e7a12c0e54268467ca9642f93
                 runOnUiThread(() -> {
                     setLoading(false);
                     Toast.makeText(FormSkpActivity.this, "Data SKP berhasil diupdate", Toast.LENGTH_SHORT).show();
