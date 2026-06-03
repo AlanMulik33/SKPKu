@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.util.UUID;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -35,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     private static final int TARGET_SKP = 200;
 
     private TextView tvGreeting, tvTotalPoin, tvTargetPoin, tvSisaPoin;
+    private String userKey;
     private TextView tvReminderWajib, tvRingkasan, tvEmpty;
     private TextView navDashboard, navSkp;
     private LinearLayout layoutDashboard, layoutSkp;
@@ -179,6 +181,7 @@ public class MainActivity extends AppCompatActivity {
     private void openFormActivity() {
         Intent intent = new Intent(MainActivity.this, FormSkpActivity.class);
         intent.putExtra("mode", "create");
+        intent.putExtra("user_key", userKey);
         startActivity(intent);
     }
 
@@ -216,6 +219,20 @@ public class MainActivity extends AppCompatActivity {
         } else {
             tvGreeting.setText("Halo, " + nama);
         }
+    }
+
+    private String getOrCreateUserKey() {
+        String key = sharedPreferences.getString("user_key", "");
+
+        if (key == null || key.trim().isEmpty()) {
+            key = UUID.randomUUID().toString();
+
+            sharedPreferences.edit()
+                    .putString("user_key", key)
+                    .apply();
+        }
+
+        return key;
     }
 
     /*
@@ -266,7 +283,7 @@ public class MainActivity extends AppCompatActivity {
      * Mengambil semua data SKP dari Supabase.
      */
     private void loadSkpDataFromSupabase() {
-        SupabaseClient.getAllSkpRecords(new SupabaseClient.SupabaseCallback() {
+        SupabaseClient.getAllSkpRecords(userKey, new SupabaseClient.SupabaseCallback() {
             @Override
             public void onSuccess(String responseBody) {
                 try {

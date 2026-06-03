@@ -13,6 +13,7 @@ import java.io.Serializable;
 public class Skp implements Serializable {
 
     private String id;
+    private String user_key;
     private String nama_kegiatan;
     private String jenis_kegiatan;
     private String kategori_bidang;
@@ -72,6 +73,7 @@ public class Skp implements Serializable {
         Skp skp = new Skp();
 
         skp.id = object.optString("id", "");
+        skp.user_key = object.optString("user_key", "");
         skp.nama_kegiatan = object.optString("nama_kegiatan", "");
         skp.jenis_kegiatan = object.optString("jenis_kegiatan", "");
         skp.kategori_bidang = object.optString("kategori_bidang", "");
@@ -116,6 +118,14 @@ public class Skp implements Serializable {
 
     public String getId() {
         return id;
+    }
+
+    public String getUser_key() {
+        return user_key;
+    }
+
+    public void setUser_key(String user_key) {
+        this.user_key = user_key;
     }
 
     public String getNama_kegiatan() {

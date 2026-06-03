@@ -33,7 +33,12 @@ public class SkpAdapter extends RecyclerView.Adapter<SkpAdapter.SkpViewHolder> {
 
     public SkpAdapter(Context context, List<Skp> skpList, OnItemClickListener listener) {
         this.context = context;
-        this.skpList = skpList != null ? skpList : new ArrayList<>();
+        this.skpList = new ArrayList<>();
+
+        if (skpList != null) {
+            this.skpList.addAll(skpList);
+        }
+
         this.listener = listener;
     }
 

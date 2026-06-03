@@ -1,5 +1,6 @@
 package com.alzen.skpku;
 
+
 import android.content.Context;
 import android.net.Uri;
 
@@ -29,7 +30,7 @@ public class SupabaseClient {
     public static final String SUPABASE_URL = "https://iodigakwxtdyyivoxuqv.supabase.co";
     public static final String SUPABASE_ANON_KEY = "sb_publishable_CFrekMEtCf3NcHUS5Jsx0Q_VaNDSRCF";
     public static final String TABLE_NAME = "skp_records";
-    public static final String BUCKET_NAME = "bukti-skp";
+    public static final String BUCKET_NAME = "skp-bukti";
 
     private static final OkHttpClient client = new OkHttpClient();
 
@@ -54,11 +55,15 @@ public class SupabaseClient {
      * Method untuk membaca semua data SKP dari Supabase.
      * Data diurutkan berdasarkan timestamp terbaru.
      */
-    public static void getAllSkpRecords(SupabaseCallback callback) {
+    public static void getAllSkpRecords(String userKey, SupabaseCallback callback) {
+        String encodedUserKey = encodePath(userKey);
+
         String url = SUPABASE_URL
                 + "/rest/v1/"
                 + TABLE_NAME
-                + "?select=*&order=timestamp.desc";
+                + "?select=*&user_key=eq."
+                + encodedUserKey
+                + "&order=timestamp.desc";
 
         Request request = getBaseRequestBuilder(url)
                 .get()

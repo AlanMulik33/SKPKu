@@ -14,12 +14,14 @@ import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.content.SharedPreferences;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.util.UUID;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -38,6 +40,7 @@ public class FormSkpActivity extends AppCompatActivity {
     private Spinner spKategori, spKegiatan, spTingkat, spPeran, spMode;
     private Button btnPilihFile, btnSimpan, btnBatal;
     private ProgressBar progressUpload;
+    private String userKey = "";
 
     private String selectedKategori = "";
     private String selectedKegiatan = "";
@@ -66,11 +69,26 @@ public class FormSkpActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_form_skp);
+        userKey = getOrCreateUserKey();
 
         initViews();
         checkMode();
         setupKategoriSpinner();
         setupClickActions();
+    }
+    private String getOrCreateUserKey() {
+        SharedPreferences preferences = getSharedPreferences("SKPKU_PREF", MODE_PRIVATE);
+        String key = preferences.getString("user_key", "");
+
+        if (key == null || key.trim().isEmpty()) {
+            key = UUID.randomUUID().toString();
+
+            preferences.edit()
+                    .putString("user_key", key)
+                    .apply();
+        }
+
+        return key;
     }
 
     /*
@@ -424,7 +442,7 @@ public class FormSkpActivity extends AppCompatActivity {
             return;
         }
 
-        SupabaseClient.getAllSkpRecords(new SupabaseClient.SupabaseCallback() {
+        SupabaseClient.getAllSkpRecords(userKey, new SupabaseClient.SupabaseCallback() {
             @Override
             public void onSuccess(String responseBody) {
                 try {
@@ -569,6 +587,7 @@ public class FormSkpActivity extends AppCompatActivity {
             skp.setFile_type(fileType);
             skp.setStorage_path(storagePath);
             skp.setTanggal_input(getTodayDate());
+            skp.setUser_key(userKey);
 
             /*
              * Untuk edit, timestamp lama tetap dipakai agar urutan data tidak berubah drastis.
