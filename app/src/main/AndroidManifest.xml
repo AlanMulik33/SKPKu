@@ -15,6 +15,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SkpKu">
         <activity
+            android:name=".DetailSkpActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".FormSkpActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
