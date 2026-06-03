@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/background_light"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/tvPreviewTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Lihat Bukti"
+        android:textColor="@color/text_dark"
+        android:textSize="22sp"
+        android:textStyle="bold" />
+
+    <WebView
+        android:id="@+id/webViewBukti"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="12dp"
+        android:layout_weight="1" />
+
+    <Button
+        android:id="@+id/btnKembaliPreview"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:layout_marginTop="12dp"
+        android:text="Kembali"
+        android:textAllCaps="false" />
+
+</LinearLayout>
